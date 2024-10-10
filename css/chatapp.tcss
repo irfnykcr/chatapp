@@ -1,0 +1,12 @@
+ChatApp {
+    layout: horizontal;
+    height: 5;
+    margin: 1;
+    min-width: 50;
+    padding: 1;
+}
+
+#input {
+	dock:bottom;
+	height: 3;
+}

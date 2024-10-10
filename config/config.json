@@ -1,0 +1,6 @@
+{
+	"host": "127.0.0.1",
+	"port": "8000",
+	"messagecheck_interval": 0.25,
+	"bufsize": 1024
+}
