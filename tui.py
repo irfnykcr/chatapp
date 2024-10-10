@@ -1,12 +1,12 @@
-import socket
-import threading
+from socket import socket, AF_INET, SOCK_STREAM
+from threading import Thread
 from textual.widgets import Header, Static
 from textual.app import App, ComposeResult
 from textual.containers import Container,ScrollableContainer
 from textual.widgets import Input
 from json import load
 from cryptography.fernet import Fernet
-import time
+from time import sleep
 
 
 with open("./config/config.json", "r") as f:
@@ -20,7 +20,7 @@ with open("./config/key.key", "rb") as f:
 	FER = Fernet(j)
 
 
-CLIENT = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+CLIENT = socket(AF_INET, SOCK_STREAM)
 CLIENT.connect((HOST, PORT))
 MESSAGES = []
 CONT_MSG = 1
@@ -49,7 +49,7 @@ def get_messages():
 			elif response.lower() == "closed":
 				return abort()
 			MESSAGES.append(response)
-			time.sleep(MCHECK_INTERVAL)
+			sleep(MCHECK_INTERVAL)
 		return abort()
 	except Exception as e:
 		print(e)
@@ -92,7 +92,7 @@ class ChatApp(App):
 
 if __name__ == "__main__":
 	app = ChatApp()
-	MESSAGE_HANDLER = threading.Thread(target=get_messages)
+	MESSAGE_HANDLER = Thread(target=get_messages)
 	MESSAGE_HANDLER.start()
 	app.run()
 	abort()

@@ -1,12 +1,16 @@
+from json import load
 from socket import socket, AF_INET, SOCK_STREAM
 from threading import Lock, Thread
 from datetime import datetime
 from cryptography.fernet import Fernet
 from string import ascii_letters, digits
 from random import choices
-HOST = "0.0.0.0"
-PORT = 8000
-RECV_BUFSIZE = 1024
+
+with open("./config/config.json", "r") as f:
+	j = load(f)
+	HOST = j["host"]
+	PORT = j["port"]
+	RECV_BUFSIZE = j["bufsize"]
 with open("./config/key.key", "rb") as f:
 	j = f.read()
 	FER = Fernet(j)
